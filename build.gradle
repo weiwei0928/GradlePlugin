@@ -16,7 +16,7 @@ buildscript {
 //apply false代表此插件仅应用于构建中的部分或全部子model, 而不是root项目
 //如果要在项目中手动使用独立项目定义的插件,需要在这里进入导入
 //plugins {
-//    id "com.petterp.gradle.stand" apply false
+//    id "com.ww.gradle.stand" apply false
 //}
 
 
