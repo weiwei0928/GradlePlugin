@@ -37,16 +37,18 @@ gradlePlugin {
 
 // 组名，可以理解为插件的存放目录
 // com/ww/gradle/plugins/xxx
+//建议和github地址对应，jitpack只看github
 group = 'com.ww.gradle'
 description = '这是一个独立的插件id'
+//建议和release的tag相同，jitpack只看github
 version = '1.0.0'
 
 sourceCompatibility = JavaVersion.VERSION_11
 publishing {
     publications {
         maven(MavenPublication) {
-            //插件名称
-            artifactId = 'stand_plugin'
+            //插件名称 建议和github仓库名称对应，jitpack只看github
+            artifactId = 'GradlePlugin'
             from components.java
         }
     }
