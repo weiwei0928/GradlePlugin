@@ -15,7 +15,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "GradlePluginSimple"
+rootProject.name = "GradlePlugin"
 include ':app'
 include ':stand-gradle-plugin'
 
