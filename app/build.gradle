@@ -10,18 +10,18 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     //方式2，buildSrc
-//    id 'com.petterp.gradle.buildSrc'
+    id 'com.ww.gradle.buildSrc'
     //方式3,独立项目中
-//    id 'com.petterp.gradle.stand'
+//    id 'com.ww.gradle.stand'
 }
 //直接在build中写插件,方式1
-apply plugin: BuildGradle
+//apply plugin: BuildGradle
 
 android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.petterp.test.gradle"
+        applicationId "com.ww.test.gradle"
         minSdk 21
         targetSdk 32
         versionCode 1

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.petterp.test.gradle">
+    package="com.ww.test.gradle">
 
     <application
         android:allowBackup="true"

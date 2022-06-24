@@ -1,11 +1,11 @@
-package com.petterp.gradle
+package com.ww.gradle
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 /**
  *
- * @author petterp
+ * @author ww
  */
 class StandGradlePlugin : Plugin<Project> {
     override fun apply(p0: Project) {

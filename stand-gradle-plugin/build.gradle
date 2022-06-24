@@ -24,8 +24,8 @@ gradlePlugin {
     plugins {
         //插件名,每一个插件都可以有
         routerPlugin {
-            id = 'com.petterp.gradle.stand'
-            implementationClass = 'com.petterp.gradle.StandGradlePlugin'
+            id = 'com.ww.gradle.stand'
+            implementationClass = 'com.ww.gradle.StandGradlePlugin'
         }
         //第二个插件
 //        test2Plugin {
@@ -36,8 +36,8 @@ gradlePlugin {
 }
 
 // 组名，可以理解为插件的存放目录
-// com/petterp/gradle/plugins/xxx
-group = 'com.petterp.gradle'
+// com/ww/gradle/plugins/xxx
+group = 'com.ww.gradle'
 description = '这是一个独立的插件id'
 version = '1.0.0'
 
