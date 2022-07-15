@@ -6,6 +6,13 @@ pluginManagement {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
+        maven {
+            url uri('repo')
+        }
+//        maven {
+//            allowInsecureProtocol = true
+//            url 'http://192.168.1.199:8081/nexus/content/repositories/snapshots/'
+//        }
     }
 }
 dependencyResolutionManagement {
@@ -13,11 +20,18 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url uri('repo')
+        }
+//        maven {
+//            allowInsecureProtocol = true
+//            url 'http://192.168.1.199:8081/nexus/content/repositories/snapshots/'
+//        }
     }
 }
 rootProject.name = "GradlePlugin"
 include ':app'
-include ':stand-gradle-plugin'
+//include ':stand-gradle-plugin'
 
 //本地使用方式3-stand 时可以打开下面的开关，然后调整根build.gradle-plugin部分代码块，即可导入相应插件
-//includeBuild('stand-gradle-plugin')
+includeBuild('stand-gradle-plugin')

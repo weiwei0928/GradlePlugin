@@ -6,6 +6,9 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url uri('repo')
+        }
     }
     dependencies {
         // 因为使用的 Kotlin 需要需要添加 Kotlin 插件
@@ -17,6 +20,9 @@ buildscript {
 repositories {
     google()
     mavenCentral()
+    maven {
+        url uri('repo')
+    }
 }
 
 //本地依赖插件时使用
@@ -63,6 +69,12 @@ publishing {
 
 
 dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+//    api gradleApi()
+    implementation 'com.android.tools.build:gradle:7.0.4'
+    implementation 'org.javassist:javassist:3.28.0-GA'
+    api 'com.android.tools:common:30.0.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10"
 }
 
