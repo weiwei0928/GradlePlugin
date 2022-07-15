@@ -3,12 +3,16 @@ buildscript {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
+        maven {
+            url uri('repo')
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
         //这里是测试最终jitpack生成的插件,你可以根据你的需要测试自己的插件
-        classpath 'com.github.weiwei0928:GradlePluginDemo:1.0.0'
+//        classpath 'com.github.weiwei0928:GradlePluginDemo:1.0.0'
+        classpath 'com.ww.gradle:GradlePlugin:1.0.0'
     }
 }
 
