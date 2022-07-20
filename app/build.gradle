@@ -12,7 +12,7 @@ plugins {
     //方式2，buildSrc
 //    id 'com.ww.gradle.buildSrc'
     //方式3,独立项目中
-//    id 'com.ww.gradle.stand'
+    id 'com.ww.gradle.stand'
 }
 //直接在build中写插件,方式1
 //apply plugin: BuildGradle
@@ -44,12 +44,23 @@ android {
         jvmTarget = '1.8'
     }
 }
+def prefix = "weiwei :"
+//配置前
+this.beforeEvaluate {
+    println(prefix+"in build.gradle beforeEvaluate")
 
+}
+//配置后
+this.afterEvaluate {
+    println(prefix+"in build.gradle afterEvaluate ")
+
+}
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.4.0'
+    implementation files('libs/pluginRely.1.0.jar')
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

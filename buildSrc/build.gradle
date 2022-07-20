@@ -1,5 +1,8 @@
 apply plugin: 'kotlin'
 apply plugin: 'java-gradle-plugin'
+
+def prefix = "weiwei :"
+
 buildscript {
     repositories {
         google()
@@ -36,7 +39,16 @@ gradlePlugin {
 //        }
     }
 }
+//循环每个build.gradle来构建task依赖关系图
+this.gradle.beforeProject {
+    Project project ->
+        println(prefix + "beforeProject Project name = " + project.name)
+}
 
+this.gradle.afterProject {
+    Project project ->
+        println(prefix + "afterProject Project name  = " + project.name)
+}
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10"
 }
