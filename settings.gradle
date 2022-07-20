@@ -35,3 +35,34 @@ include ':app'
 
 //本地使用方式3-stand 时可以打开下面的开关，然后调整根build.gradle-plugin部分代码块，即可导入相应插件
 includeBuild('stand-gradle-plugin')
+def prefix = "weiwei :"
+
+//监听Gradle的生命周期需要放在settings.gradle中，否则有些方法无法监听到
+//this.gradle.addBuildListener(new BuildListener() {
+//
+//    @Override
+//    void settingsEvaluated(Settings settings) {
+//        println(prefix + "settingsEvaluated ")
+//    }
+//
+//    @Override
+//    void projectsLoaded(Gradle gradle) {
+//        println(prefix + "projectsLoaded 已经完成Gradle构建的初始化阶段")
+//        //会调用到对应的this.gradle.projectsLoaded{}
+//    }
+//
+//    @Override
+//    void projectsEvaluated(Gradle gradle) {
+//        println(prefix + " projectsEvaluated 已经完成Gradle构建的配置阶段")
+//    }
+//
+//    @Override
+//    void buildFinished(BuildResult buildResult) {
+//        println(prefix + "buildFinished  已经完成Gralde构建的执行阶段")
+//    }
+//})
+
+this.gradle.allprojects {
+    Project project ->
+        println(prefix + " allprojects Project name =  "+project.name)
+}

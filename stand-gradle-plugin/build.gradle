@@ -70,7 +70,6 @@ publishing {
 
 dependencies {
     implementation gradleApi()
-    implementation localGroovy()
 //    api gradleApi()
     implementation 'com.android.tools.build:gradle:7.0.4'
     implementation 'org.javassist:javassist:3.28.0-GA'

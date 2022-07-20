@@ -1,7 +1,6 @@
 package com.ww.gradle
 
 import com.android.build.gradle.AppExtension
-import com.android.build.gradle.BaseExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -15,7 +14,7 @@ class StandGradlePlugin : Plugin<Project> {
         val findByType = project.extensions.findByType(AppExtension::class.java)
         println(findByType)
 
-        findByType?.registerTransform(MyTransform(project))
+        findByType?.registerTransform(LoggerTransformer(project))
 
     }
 }

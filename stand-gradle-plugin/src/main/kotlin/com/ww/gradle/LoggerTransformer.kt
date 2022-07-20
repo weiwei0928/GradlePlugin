@@ -1,18 +1,14 @@
 package com.ww.gradle
 
 import com.android.SdkConstants
-import com.android.build.api.transform.Format
-import com.android.build.api.transform.QualifiedContent
+import com.android.build.api.transform.*
 import com.android.build.api.transform.QualifiedContent.DefaultContentType
 import com.android.build.api.transform.QualifiedContent.Scope
-import com.android.build.api.transform.Status
-import com.android.build.api.transform.Transform
-import com.android.build.api.transform.TransformInvocation
 import com.android.build.gradle.BaseExtension
 import javassist.ClassPool
 import javassist.Modifier
 import org.gradle.api.Project
-import java.util.EnumSet
+import java.util.*
 /**
  * @Author weiwei
  * @Date 2022/7/12 18:47
@@ -36,7 +32,7 @@ class LoggerTransformer(private val project: Project) : Transform() {
 
     override fun transform(transformInvocation: TransformInvocation) {
         super.transform(transformInvocation)
-        println("哈哈哈哈哈")
+        println("哈哈")
         val log = project.logger
         val outputDir = transformInvocation.outputProvider.getContentLocation(
             name,
@@ -51,14 +47,14 @@ class LoggerTransformer(private val project: Project) : Transform() {
             if (isIncremental) collectClassNamesForIncrementalBuild(transformInvocation)
             else collectClassNamesForFullBuild(transformInvocation)
         val ctClasses = classNames.map { className ->
-            log.debug("className: $className")
+            println("className: $className")
             classPool.get(className)
         }
 
         ctClasses.flatMap { it.declaredMethods.toList() }
             .filter { !Modifier.isAbstract(it.modifiers) && !Modifier.isNative(it.modifiers) }
             .forEach {
-                log.debug("methodName: ${it.name}")
+                println("methodName: ${it.name}")
 
                 it.insertBefore("android.util.Log.e(\"LoggerTransformer\", \"before: ${it.name}\");")
                 it.insertAfter("android.util.Log.e(\"LoggerTransformer\", \"after: ${it.name}\");")
@@ -67,20 +63,24 @@ class LoggerTransformer(private val project: Project) : Transform() {
         ctClasses.forEach { it.writeFile(outputDir.canonicalPath) }
     }
 
-    private fun createClassPool(invocation: TransformInvocation): ClassPool {
-        val classPool = ClassPool(null)
+    private fun createClassPool(transformInvocation: TransformInvocation): ClassPool {
+//        val classPool = ClassPool(null)
+        val classPool = ClassPool.getDefault()
         classPool.appendSystemPath()
         project.extensions.findByType(BaseExtension::class.java)?.bootClasspath?.forEach {
             classPool.appendClassPath(it.absolutePath)
         }
 
-        invocation.inputs.forEach { input ->
-            input.directoryInputs.forEach { classPool.appendClassPath(it.file.absolutePath) }
-            input.jarInputs.forEach { classPool.appendClassPath(it.file.absolutePath) }
+        transformInvocation.inputs.forEach { input ->
+            input.directoryInputs.forEach { classPool.insertClassPath(it.file.absolutePath) }
+            input.jarInputs.forEach {
+                println(it.file.absolutePath)
+                classPool.insertClassPath(it.file.absolutePath)
+            }
         }
-        invocation.referencedInputs.forEach { input ->
-            input.directoryInputs.forEach { classPool.appendClassPath(it.file.absolutePath) }
-            input.jarInputs.forEach { classPool.appendClassPath(it.file.absolutePath) }
+        transformInvocation.referencedInputs.forEach { input ->
+            input.directoryInputs.forEach { classPool.insertClassPath(it.file.absolutePath) }
+            input.jarInputs.forEach { classPool.insertClassPath(it.file.absolutePath) }
         }
 
         return classPool
