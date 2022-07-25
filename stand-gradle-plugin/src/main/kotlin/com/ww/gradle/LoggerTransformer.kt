@@ -32,7 +32,7 @@ class LoggerTransformer(private val project: Project) : Transform() {
 
     override fun transform(transformInvocation: TransformInvocation) {
         super.transform(transformInvocation)
-        println("哈哈")
+
         val log = project.logger
         val outputDir = transformInvocation.outputProvider.getContentLocation(
             name,
@@ -40,12 +40,14 @@ class LoggerTransformer(private val project: Project) : Transform() {
             scopes,
             Format.DIRECTORY
         )
-
+        println("TAG:${outputDir.canonicalPath}")
         val classPool = createClassPool(transformInvocation)
         val isIncremental = transformInvocation.isIncremental
         val classNames =
             if (isIncremental) collectClassNamesForIncrementalBuild(transformInvocation)
             else collectClassNamesForFullBuild(transformInvocation)
+        println("${name}classNames:$classNames")
+
         val ctClasses = classNames.map { className ->
             println("className: $className")
             classPool.get(className)
@@ -86,8 +88,8 @@ class LoggerTransformer(private val project: Project) : Transform() {
         return classPool
     }
 
-    private fun collectClassNamesForFullBuild(invocation: TransformInvocation): List<String> =
-        invocation.inputs
+    private fun collectClassNamesForFullBuild(transformInvocation: TransformInvocation): List<String> =
+        transformInvocation.inputs
             .flatMap { it.directoryInputs }
             .flatMap {
                 it.file.walkTopDown()

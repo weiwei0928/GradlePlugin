@@ -14,7 +14,8 @@ class StandGradlePlugin : Plugin<Project> {
         val findByType = project.extensions.findByType(AppExtension::class.java)
         println(findByType)
 
-        findByType?.registerTransform(LoggerTransformer(project))
+//      在AGP7.0中Transform已经被标记为废弃了，并且将在AGP8.0中移除。是时候了解一下，在Transform被废弃之后，该怎么适配了
+        findByType?.registerTransform(ActivityTransform(project))
 
     }
 }

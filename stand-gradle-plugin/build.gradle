@@ -47,7 +47,7 @@ gradlePlugin {
 group = 'com.ww.gradle'
 description = '这是一个独立的插件id'
 //建议和release的tag相同，jitpack只看github
-version = '1.0.0'
+version = '1.0.0-beta-0'
 
 sourceCompatibility = JavaVersion.VERSION_11
 publishing {
