@@ -31,7 +31,8 @@ gradlePlugin {
         //插件名,每一个插件都可以有
         routerPlugin {
             id = 'com.ww.gradle.stand'
-            implementationClass = 'com.ww.gradle.StandGradlePlugin'
+//            implementationClass = 'com.ww.gradle.StandGradlePlugin'
+            implementationClass = 'com.ww.gradle.pluginmeta.WritePluginMetaPlugin'
         }
         //第二个插件
 //        test2Plugin {
