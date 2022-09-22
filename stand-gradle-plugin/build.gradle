@@ -76,5 +76,7 @@ dependencies {
     implementation 'org.javassist:javassist:3.28.0-GA'
     api 'com.android.tools:common:30.0.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10"
+    implementation "com.googlecode.json-simple:json-simple:1.1"
+
 }
 

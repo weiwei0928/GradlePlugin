@@ -1,3 +1,5 @@
+import org.json.JSONObject
+
 //方式1
 class BuildGradle implements Plugin<Project> {
     @Override
@@ -6,9 +8,11 @@ class BuildGradle implements Plugin<Project> {
     }
 }
 
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+//    id 'java-library'
     //方式2，buildSrc
 //    id 'com.ww.gradle.buildSrc'
     //方式3,独立项目中
@@ -16,7 +20,13 @@ plugins {
 }
 //直接在build中写插件,方式1
 //apply plugin: BuildGradle
-
+//
+pluginMeta {
+    version = "1.0.1"
+    name = "plugin_main"
+    mainClass = "com.ww.plugin.mine.MainActivity"
+    innerPlugin = false
+}
 android {
     compileSdk 31
 
@@ -47,16 +57,17 @@ android {
 def prefix = "weiwei :"
 //配置前
 this.beforeEvaluate {
-    println(prefix+"in build.gradle beforeEvaluate")
+    println(prefix + "in build.gradle beforeEvaluate")
 
 }
 //配置后
 this.afterEvaluate {
-    println(prefix+"in build.gradle afterEvaluate ")
+    println(prefix + "in build.gradle afterEvaluate ")
 
 }
 dependencies {
-
+//    implementation gradleApi()
+//    implementation localGroovy()
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.4.0'
@@ -64,4 +75,49 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
+
+task writePluginMeta(dependsOn: ['makePluginMeta']) {
+    doFirst {
+        println("dofirst")
+    }
+
+    doLast {
+        println("doLast")
+    }
+}
+project.afterEvaluate {
+
+    println "project.afterEvaluate，哈哈"
+//    Task generateDebugAssets = getProject().tasks.generateDebugAssets
+//    Task generateReleaseAssets = getProject().tasks.generateReleaseAssets
+//    generateDebugAssets.dependsOn(makePluginMetaTask)
+//    generateReleaseAssets.dependsOn(makePluginMetaTask)
+}
+def makePluginMetaTask = task("makePluginMeta") {
+    doLast {
+        File file = getProject().file("src/main/assets/plugin.meta")
+        file.parentFile.mkdirs()
+        file.withWriter {
+            it << buildPluginMeta()
+        }
+    }
+}
+
+def buildPluginMeta() {
+    def jsonObject = new JSONObject()
+    println(project.ext.version)
+    jsonObject.put("version",project.ext.version)
+    jsonObject.put("name",project.ext.name)
+    jsonObject.put("mainclass",project.ext.mainClass)
+    jsonObject.put("innerPlugin",project.ext.innerPlugin)
+    print(jsonObject.toString())
+    return jsonObject.toString()
+}
+
+ext {
+    version = "2.0"
+    name = "plugin_main"
+    mainClass = "com.ww.plugin.mine.MainActivity"
+    innerPlugin = false
 }
