@@ -17,7 +17,7 @@ import java.io.Writer;
  * @Date 2022/7/15 18:41
  */
 
-public class test1 {
+public class Test1 {
 
     // 测试json对象写入到文件
     public static void testJsonWriteFile(Context context) throws IOException {
@@ -45,7 +45,7 @@ public class test1 {
 
     public static void main(String[] args) throws IOException {
 
-        testJsonWriteFile();
+//        testJsonWriteFile();
     }
 }
 
