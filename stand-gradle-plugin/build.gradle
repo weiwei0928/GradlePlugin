@@ -30,7 +30,7 @@ gradlePlugin {
     plugins {
         //插件名,每一个插件都可以有
         routerPlugin {
-            id = 'com.ww.gradle.stand'
+            id = 'com.ww.easy.plugin'
 //            implementationClass = 'com.ww.gradle.StandGradlePlugin'
             implementationClass = 'com.ww.gradle.pluginmeta.WritePluginMetaPlugin'
         }
@@ -43,9 +43,8 @@ gradlePlugin {
 }
 
 // 组名，可以理解为插件的存放目录
-// com/ww/gradle/plugins/xxx
 //建议和github地址对应，jitpack只看github
-group = 'com.ww.gradle'
+group = 'com.ww.easy'
 description = '这是一个独立的插件id'
 //建议和release的tag相同，jitpack只看github
 version = '1.0.0-beta-0'
@@ -55,7 +54,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             //插件名称 建议和github仓库名称对应，jitpack只看github
-            artifactId = 'GradlePlugin'
+            artifactId = 'plugin'
             from components.java
         }
     }

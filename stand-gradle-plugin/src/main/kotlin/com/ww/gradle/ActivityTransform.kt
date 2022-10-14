@@ -87,13 +87,13 @@ class ActivityTransform(private val project: Project) : Transform() {
         appCompatActivities.forEach {
             it.replaceClassName(
                 "androidx.appcompat.app.AppCompatActivity",
-                "com.eyepetizer.android.ui.common.ui.BaseActivity"
+                "zeus.plugin.ZeusBaseActivity"
             )
         }
         activities.forEach {
             it.replaceClassName(
                 "android.app.Activity",
-                "com.eyepetizer.android.ui.common.ui.BaseActivity"
+                "zeus.plugin.ZeusBaseActivity"
             )
         }
 

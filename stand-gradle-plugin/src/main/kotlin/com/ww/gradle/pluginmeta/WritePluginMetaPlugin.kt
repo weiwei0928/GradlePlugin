@@ -4,6 +4,7 @@ import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryPlugin
+import com.ww.gradle.ActivityTransform
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -25,47 +26,36 @@ class WritePluginMetaPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         project.extensions.create("pluginMeta", PluginMeta::class.java)
-        val appExtension: AppExtension = project.extensions.getByType(AppExtension::class.java)
-        val pluginVariants = appExtension.applicationVariants.forEach {
-            it.mergeAssetsProvider.get().doLast {
-
-            }
-        }
-
         val pluginMeta = project.extensions.getByName("pluginMeta") as PluginMeta
 
         val hasAppPlugin = project.plugins.hasPlugin(AppPlugin::class.java)
         val hasLibPlugin = project.plugins.hasPlugin(LibraryPlugin::class.java)
         if (hasAppPlugin || hasLibPlugin) {
             android = project.extensions.getByName("android") as BaseExtension
-            android.variantFilter {
-//                println(TAG + it)
-//                println(TAG + it.name)
-            }
-
         } else {
             throw GradleException("非法使用")
         }
+
+        val appExtension = project.extensions.findByType(AppExtension::class.java)
+        //transform 替换插件activity
+        appExtension?.registerTransform(ActivityTransform(project))
         project.afterEvaluate {
             android.variantFilter {
-                println(TAG+"哈哈哈" + it.name)
+                project.logger.info(TAG+"afterEvaluate :" + it.name)
             }
             writePluginMeta(project, pluginMeta)
         }
-
-
     }
 
     private fun writePluginMeta(project: Project, pluginMeta: PluginMeta) {
-//        val pluginMeta = project.extensions.findByType(PluginMeta::class.java)
         project.logger.info("$TAG writePluginMeta enter")
 
         val file = project.file("src/main/assets/plugin.meta")
         file.parentFile.mkdirs()
         val json = buildJson(pluginMeta)
-        project.logger.debug(json)
+        project.logger.info(json)
         try {
-            val fileOutputStream: FileOutputStream = FileOutputStream(file)
+            val fileOutputStream = FileOutputStream(file)
 
             fileOutputStream.write(json?.toByteArray())
             fileOutputStream.close()
@@ -75,13 +65,10 @@ class WritePluginMetaPlugin : Plugin<Project> {
     }
 
     private fun buildJson(pluginMeta: PluginMeta): String? {
-
-
         val jsonObject = JSONObject()
-
         jsonObject["version"] = pluginMeta.version
         jsonObject["name"] = pluginMeta.name
-        jsonObject["mainclass"] = pluginMeta.mainClass
+        jsonObject["mainClass"] = pluginMeta.mainClass
         jsonObject["innerPlugin"] = pluginMeta.innerPlugin
         print(jsonObject.toString())
         return jsonObject.toString()
