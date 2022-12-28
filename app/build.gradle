@@ -16,17 +16,17 @@ plugins {
     //方式2，buildSrc
 //    id 'com.ww.gradle.buildSrc'
     //方式3,独立项目中
-    id 'com.ww.easy.plugin'
+//    id 'com.ww.easy.plugin'
 }
 //直接在build中写插件,方式1
 //apply plugin: BuildGradle
 //
-pluginMeta {
-    version = "1.0.2"
-    name = "plugin_main"
-    mainClass = "com.ww.plugin.mine.MainActivity"
-    innerPlugin = false
-}
+//pluginMeta {
+//    version = "1.0.2"
+//    name = "plugin_main"
+//    mainClass = "com.ww.plugin.mine.MainActivity"
+//    innerPlugin = false
+//}
 android {
     compileSdk 31
 

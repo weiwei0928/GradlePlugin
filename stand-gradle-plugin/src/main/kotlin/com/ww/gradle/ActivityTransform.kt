@@ -6,6 +6,7 @@ import com.android.build.api.transform.Transform
 import com.android.build.api.transform.TransformInvocation
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.internal.pipeline.TransformManager
+import com.android.utils.FileUtils
 import javassist.ClassPool
 import org.gradle.api.Project
 
@@ -62,10 +63,18 @@ class ActivityTransform(private val project: Project) : Transform() {
                 println("$TAG directoryInputs: ${it.file.absolutePath}")
                 classPool.insertClassPath(it.file.absolutePath)
             }
-//            input.jarInputs.forEach {
-//                println("$TAG jarInputs: ${it.file.absolutePath}")
+            input.jarInputs.forEach {
+                println("$TAG jarInputs: ${it.file.absolutePath}")
 //                classPool.insertClassPath(it.file.absolutePath)
-//            }
+                var jarName = it.name
+//                var md5Name = DigestUtils.md5Hex(it.file.absolutePath)
+                if (jarName.endsWith(".jar")) {
+                    jarName = jarName.substring(0, jarName.length - 4)
+                }
+                var dest = transformInvocation.outputProvider.getContentLocation(
+                        jarName , it.contentTypes, it.scopes, Format.JAR)
+                FileUtils.copyFile(it.file, dest)
+            }
         }
         val classNames = transformInvocation.collectClassNamesForFullBuild()
         println("${TAG}classNames:$classNames")
@@ -98,6 +107,7 @@ class ActivityTransform(private val project: Project) : Transform() {
         }
 
         ctClasses.forEach { it.writeFile(outputDir.canonicalPath) }
+//        ctClasses.forEach { it.writeFile(jarOutputDir.canonicalPath) }
 
     }
 

@@ -29,16 +29,15 @@ repositories {
 gradlePlugin {
     plugins {
         //插件名,每一个插件都可以有
-        routerPlugin {
-            id = 'com.ww.easy.plugin'
-//            implementationClass = 'com.ww.gradle.StandGradlePlugin'
+        activityTransformPlugin {
+            id = 'com.ww.easy.activityTransformPlugin'
+            implementationClass = 'com.ww.gradle.StandGradlePlugin'
+        }
+        writePluginMetaPlugin {
+            id = 'com.ww.easy.writePluginMetaPlugin'
             implementationClass = 'com.ww.gradle.pluginmeta.WritePluginMetaPlugin'
         }
-        //第二个插件
-//        test2Plugin {
-//            id = xxx
-//            implementationClass = xxx
-//        }
+
     }
 }
 
@@ -50,6 +49,7 @@ description = '这是一个独立的插件id'
 version = '1.0.0-beta-0'
 
 sourceCompatibility = JavaVersion.VERSION_11
+//sourceCompatibility = JavaVersion.VERSION_1_8
 publishing {
     publications {
         maven(MavenPublication) {

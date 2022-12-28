@@ -1,10 +1,8 @@
 package com.ww.gradle.pluginmeta
 
-import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryPlugin
-import com.ww.gradle.ActivityTransform
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -36,12 +34,15 @@ class WritePluginMetaPlugin : Plugin<Project> {
             throw GradleException("非法使用")
         }
 
-        val appExtension = project.extensions.findByType(AppExtension::class.java)
-        //transform 替换插件activity
-        appExtension?.registerTransform(ActivityTransform(project))
+        /**
+         * val appExtension = project.extensions.findByType(AppExtension::class.java)
+         * //transform 替换插件activity
+         * appExtension?.registerTransform(ActivityTransform(project))
+         * */
+
         project.afterEvaluate {
             android.variantFilter {
-                project.logger.info(TAG+"afterEvaluate :" + it.name)
+                project.logger.info(TAG + "afterEvaluate :" + it.name)
             }
             writePluginMeta(project, pluginMeta)
         }
