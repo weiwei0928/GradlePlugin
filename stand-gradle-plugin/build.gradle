@@ -31,7 +31,7 @@ gradlePlugin {
         //插件名,每一个插件都可以有
         activityTransformPlugin {
             id = 'com.ww.easy.activityTransformPlugin'
-            implementationClass = 'com.ww.gradle.StandGradlePlugin'
+            implementationClass = 'com.ww.gradle.transform.activity.StandGradlePlugin'
         }
         writePluginMetaPlugin {
             id = 'com.ww.easy.writePluginMetaPlugin'
@@ -70,7 +70,7 @@ publishing {
 
 dependencies {
     implementation gradleApi()
-//    api gradleApi()
+    api gradleApi()
     implementation 'com.android.tools.build:gradle:7.0.4'
     implementation 'org.javassist:javassist:3.28.0-GA'
     api 'com.android.tools:common:30.0.3'

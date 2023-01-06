@@ -1,4 +1,4 @@
-package com.ww.gradle
+package com.ww.gradle.transform.activity
 
 import com.android.build.gradle.AppExtension
 import org.gradle.api.Plugin

@@ -1,4 +1,4 @@
-package com.ww.gradle
+package com.ww.gradle.transform.activity
 
 import com.android.build.api.transform.Format
 import com.android.build.api.transform.QualifiedContent
@@ -7,6 +7,7 @@ import com.android.build.api.transform.TransformInvocation
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.utils.FileUtils
+import com.ww.gradle.collectClassNamesForFullBuild
 import javassist.ClassPool
 import org.gradle.api.Project
 
