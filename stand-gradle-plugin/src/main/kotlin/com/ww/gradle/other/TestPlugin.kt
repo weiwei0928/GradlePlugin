@@ -1,4 +1,4 @@
-package com.ww.gradle
+package com.ww.gradle.other
 
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.BaseExtension

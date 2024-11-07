@@ -1,4 +1,4 @@
-package com.ww.gradle
+package com.ww.gradle.other
 
 import com.android.build.api.transform.QualifiedContent
 import com.android.build.api.transform.Transform

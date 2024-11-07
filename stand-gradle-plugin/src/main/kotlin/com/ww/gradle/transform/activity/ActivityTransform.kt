@@ -7,7 +7,7 @@ import com.android.build.api.transform.TransformInvocation
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.utils.FileUtils
-import com.ww.gradle.collectClassNamesForFullBuild
+import com.ww.gradle.other.collectClassNamesForFullBuild
 import javassist.ClassPool
 import org.gradle.api.Project
 
