@@ -4,7 +4,9 @@ buildscript {
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven {
-            url uri('repo')
+            def repo = uri('repo')
+            println(repo)
+            url repo
         }
     }
     dependencies {

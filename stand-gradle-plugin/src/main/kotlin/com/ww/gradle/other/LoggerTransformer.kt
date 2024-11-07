@@ -1,4 +1,4 @@
-package com.ww.gradle
+package com.ww.gradle.other
 
 import com.android.SdkConstants
 import com.android.build.api.transform.*
